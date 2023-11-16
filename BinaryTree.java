@@ -9,10 +9,9 @@
 public class BinaryTree<E> implements Iterable<E>
 {
     private E element;
-    private BinaryTree<E> leftChild;
-    private BinaryTree<E> rightChild;
-    private BinaryTree<E> parent;
-    private int modCount;
+    private BinaryTree<E> _leftChild;
+    private BinaryTree<E> _rightChild;
+    private BinaryTree<E> _parent;
 
     /**
      *
@@ -21,10 +20,9 @@ public class BinaryTree<E> implements Iterable<E>
     public BinaryTree(E element)
     {
         this.element = element;
-        this.leftChild = null;
-        this.rightChild = null;
-        this.parent = null;
-        this.modCount = 0;
+        this._leftChild = null;
+        this._rightChild = null;
+        this._parent = null;
     }
 
     /**
@@ -33,7 +31,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public E getElement()
     {
-
+        return this.element;
     }
 
     /**
@@ -43,7 +41,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public E setElement(E element)
     {
-
+        return this.element = element;
     }
 
     /**
@@ -52,7 +50,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean hasLeftChild()
     {
-
+        return this._leftChild != null;
     }
 
     /**
@@ -61,7 +59,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> getLeftChild()
     {
-
+        return this._leftChild;
     }
 
     /**
@@ -71,6 +69,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> setLeftChild(BinaryTree<E> child)
     {
+        return setChild(true, child);
 
     }
 
@@ -80,7 +79,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean hasRightChild()
     {
-
+        return this._rightChild != null;
     }
 
     /**
@@ -89,7 +88,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> getRightChild()
     {
-
+        return this._rightChild;
     }
 
     /**
@@ -99,7 +98,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> setRightChild(BinaryTree<E> child)
     {
-
+        return setChild(false, child);
     }
 
     /**
@@ -108,7 +107,12 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> getRoot()
     {
-
+        BinaryTree<E>  current = this;
+        while (current._parent != null)
+        {
+            current = current._parent;
+        }
+        return current;
     }
 
     /**
@@ -117,7 +121,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> getParent()
     {
-
+        return this._parent;
     }
 
     /**
@@ -126,7 +130,18 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public int size()
     {
+        int _leftSize = 0;
+        int _rightSize = 0;
 
+        if (this._leftChild != null)
+        {
+            _leftSize = this._leftChild.size();
+        }
+        if (this._rightChild != null)
+        {
+            _rightSize = this._rightChild.size();
+        }
+        return 1 + _leftSize + _rightSize;
     }
 
     /**
@@ -135,7 +150,26 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public int height()
     {
+        int _leftHeight = 0;
+        int _rightHeight = 0;
 
+        if (this._leftChild != null)
+        {
+            _leftHeight = this._leftChild.height();
+        }
+        if (this._rightChild != null)
+        {
+            _rightHeight = this._rightChild.height();
+        }
+
+        if (_leftHeight > _rightHeight)
+        {
+            return 1 + _leftHeight;
+        }
+        else
+        {
+            return 1 + _rightHeight;
+        }
     }
 
     /**
@@ -144,7 +178,14 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public int level()
     {
-
+        if (this._parent == null)
+        {
+            return 0;
+        }
+        else
+        {
+            return 1 + this._parent.level();
+        }
     }
 
     /**
@@ -153,7 +194,16 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public int degree()
     {
-
+        int _degree = 0;
+        if (this._leftChild != null)
+        {
+            _degree++;
+        }
+        if (this._rightChild != null)
+        {
+            _degree++;
+        }
+        return _degree;
     }
 
     /**
@@ -162,7 +212,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isRoot()
     {
-
+        return this._parent == null;
     }
 
     /**
@@ -171,7 +221,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isParent()
     {
-
+        return this._leftChild != null || this._rightChild != null;
     }
 
     /**
@@ -180,7 +230,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isChild()
     {
-
+        return this._parent != null;
     }
 
     /**
@@ -189,7 +239,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isLeaf()
     {
-
+        return this._leftChild == null && this._rightChild == null;
     }
 
     /**
@@ -198,6 +248,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isFull()
     {
+        return this._leftChild != null && this._rightChild != null;
 
     }
 
@@ -216,7 +267,8 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isDegenerate()
     {
-
+        return (this._leftChild == null && this._rightChild != null) ||
+                (this._leftChild != null && this._rightChild == null);
     }
 
     /**
@@ -224,9 +276,18 @@ public class BinaryTree<E> implements Iterable<E>
      * @param descendant
      * @return
      */
-    public boolean isAncestorOf(BinaryTree<E> descendant)
-    {
-
+    public boolean isAncestorOf(BinaryTree<E> descendant) throws IllegalAccessException {
+        if (descendant == null) throw new IllegalAccessException("Illegal Access Exception");
+        BinaryTree<E> parent = descendant.getParent();
+        while (parent != null)
+        {
+            if (parent == this)
+            {
+                parent = parent.getParent();
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -236,7 +297,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isParentOf(BinaryTree<E> child)
     {
-
+        return this._leftChild == child || this._rightChild == child;
     }
 
     /**
@@ -246,7 +307,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isSiblingOf(BinaryTree<E> sibling)
     {
-
+        return this._parent != null && (this._parent._leftChild == sibling || this._parent._rightChild == sibling);
     }
 
     /**
