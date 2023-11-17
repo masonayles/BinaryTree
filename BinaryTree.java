@@ -1,3 +1,5 @@
+import jdk.incubator.vector.VectorOperators;
+
 /**
  *Class BinaryTree<E> is recursive data structure, where each
  * tree node has an optional left and right child
@@ -14,8 +16,9 @@ public class BinaryTree<E> implements Iterable<E>
     private BinaryTree<E> _parent;
 
     /**
-     *
-     * @param element
+     * Constructs a new BinarayTree node with a specificed element.
+     * both left and right children are set to null.
+     * @param element The element to be added in the new tree.
      */
     public BinaryTree(E element)
     {
@@ -26,8 +29,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Retrviews the element contained in this node.
+     * @return returns the element contained in this node.
      */
     public E getElement()
     {
@@ -35,9 +38,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param element
-     * @return
+     * Updates the element of this node.
+     * @param element element the new element to be stored in this node.
+     * @return returning the previously stored element.
      */
     public E setElement(E element)
     {
@@ -45,8 +48,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks if this node has a left child.
+     * @return returns true if this node has a left child.
      */
     public boolean hasLeftChild()
     {
@@ -54,8 +57,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Retrieves the left child of this node.
+     * @return returns the left child of this node, or null if there isn't one.
      */
     public BinaryTree<E> getLeftChild()
     {
@@ -63,19 +66,18 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param child
-     * @return
+     * Sets the left child of this node. Detaches the current left child.
+     * @param child child is the new left child to be set.
+     * @return returning the previous left child.
      */
     public BinaryTree<E> setLeftChild(BinaryTree<E> child)
     {
         return setChild(true, child);
-
     }
 
     /**
-     *
-     * @return
+     * Cehcks if this node has a right child.
+     * @return returning true if this node has a right child, false otherwise.
      */
     public boolean hasRightChild()
     {
@@ -83,8 +85,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Retrieves the right child.
+     * @return returning the right child of this node.
      */
     public BinaryTree<E> getRightChild()
     {
@@ -92,9 +94,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param child
-     * @return
+     * Sets the right child of this node. Detaches the current right child.
+     * @param child child is the new right child to be set.
+     * @return returning the previous right child.
      */
     public BinaryTree<E> setRightChild(BinaryTree<E> child)
     {
@@ -102,8 +104,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Returns the root of the tree.
+     * @return returning the root node of the tree.
      */
     public BinaryTree<E> getRoot()
     {
@@ -116,8 +118,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * getParent is a method that returns the parent of this node.
+     * @return returning the parent of this node.
      */
     public BinaryTree<E> getParent()
     {
@@ -125,8 +127,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Calculates the size of the subtree rooted at this node.
+     * @return returning the total number of nodes in the subtree.
      */
     public int size()
     {
@@ -145,7 +147,7 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
+     * Calculates the height of the subtree rooted at this node.
      * @return
      */
     public int height()
@@ -276,16 +278,16 @@ public class BinaryTree<E> implements Iterable<E>
      * @param descendant
      * @return
      */
-    public boolean isAncestorOf(BinaryTree<E> descendant) throws IllegalAccessException {
-        if (descendant == null) throw new IllegalAccessException("Illegal Access Exception");
+    public boolean isAncestorOf(BinaryTree<E> descendant) throws IllegalArgumentException {
+        if (descendant == null) throw new IllegalArgumentException("Illegal Access Exception");
         BinaryTree<E> parent = descendant.getParent();
         while (parent != null)
         {
             if (parent == this)
             {
-                parent = parent.getParent();
                 return true;
             }
+            parent = parent.getParent();
         }
         return false;
     }
@@ -307,7 +309,8 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isSiblingOf(BinaryTree<E> sibling)
     {
-        return this._parent != null && (this._parent._leftChild == sibling || this._parent._rightChild == sibling);
+        return this._parent != null && (this._parent._leftChild == sibling
+                || this._parent._rightChild == sibling);
     }
 
     /**
@@ -317,7 +320,7 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public boolean isChildOf(BinaryTree<E> parent)
     {
-
+        return this._parent == parent;
     }
 
     /**
@@ -383,8 +386,61 @@ public class BinaryTree<E> implements Iterable<E>
     {
 
     }
+//size, height, level, must be recurrsive methods. does my code do that?
+    /**
+     * private helper method setChild is used to assist in the public set left
+     * and right child methods
+     * @param _isLeft _isLeft is used for
+     * @param child
+     * @return
+     */
+    private BinaryTree<E> setChild(boolean _isLeft, BinaryTree<E> child) {
+        BinaryTree<E> oldChild;
+        if (_isLeft) {
+            oldChild = this._leftChild;
+        } else {
+            oldChild = this._rightChild;
+        }
 
+        // Detach current child.
+        if (oldChild != null) {
+            oldChild._parent = null;
+        }
 
+        // Setting new child.
+        if (_isLeft) {
+            this._leftChild = child;
+        } else {
+            this._rightChild = child;
+        }
 
+        // Update parent reference of the new child.
+        if (child != null)
+        {
+            if (child._parent != null)
+            {
+                child._parent.detachChild(child);
+            }
+            child._parent = this;
+        }
+        return oldChild;
+    }
+
+    /**
+     * private helper method detachChild is used to help keep track of
+     * the internal state of the program ensuring the node has its
+     * correct edges after updating a nodes reference, like adding a new node or removing a node.
+     * @param child
+     */
+    private void detachChild(BinaryTree<E> child)
+    {
+        if (this._leftChild == child)
+        {
+            this._leftChild = null;
+        } else if (this._rightChild == child)
+        {
+            this._rightChild = null;
+        }
+    }
 }
 
