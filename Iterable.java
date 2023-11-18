@@ -7,10 +7,6 @@ import java.util.Iterator;
  */
 public interface Iterable<T>
 {
-    /**
-     * Returns an iterator over elements of type T.
-     * @return returns all elements of type T.
-     */
     Iterator<T> iterator();
 }
 

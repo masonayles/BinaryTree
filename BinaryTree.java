@@ -1,4 +1,7 @@
-import jdk.incubator.vector.VectorOperators;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
 
 /**
  *Class BinaryTree<E> is recursive data structure, where each
@@ -16,7 +19,7 @@ public class BinaryTree<E> implements Iterable<E>
     private BinaryTree<E> _parent;
 
     /**
-     * Constructs a new BinarayTree node with a specificed element.
+     * Constructs a new BinaryTree node with a specified element.
      * both left and right children are set to null.
      * @param element The element to be added in the new tree.
      */
@@ -175,8 +178,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Determines the level of this node within the binary tree.
+     * @return returns the level of this node.
      */
     public int level()
     {
@@ -191,8 +194,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Calculates the degree of this node.
+     * @return returning the degree of this node.
      */
     public int degree()
     {
@@ -209,8 +212,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this node is the root of the binary tree.
+     * @return returning true if this node is the root.
      */
     public boolean isRoot()
     {
@@ -218,8 +221,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this node is a parent.
+     * @return returning true if this node has at least one child.
      */
     public boolean isParent()
     {
@@ -227,8 +230,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this node is a child.
+     * @return returning true if this node has a parent.
      */
     public boolean isChild()
     {
@@ -236,8 +239,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this node is a leaf.
+     * @return returning true if this node has no children.
      */
     public boolean isLeaf()
     {
@@ -245,8 +248,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this node is a full node.
+     * @return returns true if this node has two children.
      */
     public boolean isFull()
     {
@@ -255,8 +258,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this binary tree is complete, all levels are fully filled.
+     * @return returning true if the tree is complete.
      */
     public boolean isComplete()
     {
@@ -264,8 +267,8 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @return
+     * Checks whether this binary tree is degenerate.
+     * @return returning true if the tree is degenerate false otherwise.
      */
     public boolean isDegenerate()
     {
@@ -274,9 +277,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param descendant
-     * @return
+     * Determnines if this node is an ancestor of a given descendant node.
+     * @param descendant descendant the node to check against this node for ancestry.
+     * @return returns true if this node is an ancestor of the given descendant node.
      */
     public boolean isAncestorOf(BinaryTree<E> descendant) throws IllegalArgumentException {
         if (descendant == null) throw new IllegalArgumentException("Illegal Access Exception");
@@ -293,9 +296,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param child
-     * @return
+     * Determines if this node is the parent of a given child node.
+     * @param child child is the node to check against this node for parentage
+     * @return returning true if this node is the parent of the given child node.
      */
     public boolean isParentOf(BinaryTree<E> child)
     {
@@ -303,9 +306,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param sibling
-     * @return
+     * Determines if this node is a sibling of a given node.
+     * @param sibling sibling is the node to check against this node for sibling.
+     * @return returning true if this node is a sibling of the given node.
      */
     public boolean isSiblingOf(BinaryTree<E> sibling)
     {
@@ -314,9 +317,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param parent
-     * @return
+     * Determines if this node is a child of a given parent node.
+     * @param parent parent is the node to check against this node for child.
+     * @return returning true if this node is a child of the given parent node.
      */
     public boolean isChildOf(BinaryTree<E> parent)
     {
@@ -324,9 +327,9 @@ public class BinaryTree<E> implements Iterable<E>
     }
 
     /**
-     *
-     * @param ancestor
-     * @return
+     * Determines if this node is a descendant of a given ancestor node.
+     * @param ancestor ancestor is the node to check against this node for descendant.
+     * @return returning true if this node is a descendant of the given ancestor node.
      */
     public boolean isDescendantOf(BinaryTree<E> ancestor)
     {
@@ -339,7 +342,25 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public Iterator<E> iterator()
     {
+        LinkedList<E> elements = new LinkedList<>();
+        Deque<BinaryTree<E>> stack = new LinkedList<>();
+        // this should be the root
+        stack.push(this);
 
+        while (!stack.isEmpty())
+        {
+            BinaryTree<E> current = stack.pop();
+            elements.add(current.element);
+            if (current._rightChild != null)
+            {
+                stack.push(current._rightChild);
+            }
+            if ( current._leftChild != null)
+            {
+                stack.push(current._leftChild);
+            }
+        }
+        return elements.iterator();
     }
 
     /**
@@ -348,8 +369,10 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public Iterator<E> preOrderIterator()
     {
+       
 
-    }
+
+}
 
     /**
      *
@@ -386,13 +409,13 @@ public class BinaryTree<E> implements Iterable<E>
     {
 
     }
-//size, height, level, must be recurrsive methods. does my code do that?
+
     /**
      * private helper method setChild is used to assist in the public set left
      * and right child methods
      * @param _isLeft _isLeft is used for
-     * @param child
-     * @return
+     * @param child the child node to be set.
+     * @return returning the previous child node that was replaced.
      */
     private BinaryTree<E> setChild(boolean _isLeft, BinaryTree<E> child) {
         BinaryTree<E> oldChild;
