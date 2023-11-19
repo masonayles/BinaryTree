@@ -369,10 +369,8 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public Iterator<E> preOrderIterator()
     {
-       
-
-
-}
+        
+    }
 
     /**
      *
