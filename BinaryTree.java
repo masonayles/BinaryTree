@@ -1,7 +1,4 @@
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.NoSuchElementException;
-import java.util.Iterator;
+import java.util.*;
 
 
 /**
@@ -12,7 +9,8 @@ import java.util.Iterator;
  * child subtree rooted at that node from itself and returning it.
  * @param <E> param E is the type parameter
  */
-public class BinaryTree<E> implements Iterable<E> {
+public class BinaryTree<E> implements Iterable<E>
+{
     private E element;
     private BinaryTree<E> _leftChild;
     private BinaryTree<E> _rightChild;
@@ -24,7 +22,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @param element The element to be added in the new tree.
      */
-    public BinaryTree(E element) {
+    public BinaryTree(E element)
+    {
         this.element = element;
         this._leftChild = null;
         this._rightChild = null;
@@ -36,7 +35,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returns the element contained in this node.
      */
-    public E getElement() {
+    public E getElement()
+    {
         return this.element;
     }
 
@@ -46,7 +46,8 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param element element the new element to be stored in this node.
      * @return returning the previously stored element.
      */
-    public E setElement(E element) {
+    public E setElement(E element)
+    {
         return this.element = element;
     }
 
@@ -55,7 +56,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returns true if this node has a left child.
      */
-    public boolean hasLeftChild() {
+    public boolean hasLeftChild()
+    {
         return this._leftChild != null;
     }
 
@@ -64,7 +66,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returns the left child of this node, or null if there isn't one.
      */
-    public BinaryTree<E> getLeftChild() {
+    public BinaryTree<E> getLeftChild()
+    {
         return this._leftChild;
     }
 
@@ -74,7 +77,12 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param child child is the new left child to be set.
      * @return returning the previous left child.
      */
-    public BinaryTree<E> setLeftChild(BinaryTree<E> child) {
+    public BinaryTree<E> setLeftChild(BinaryTree<E> child)
+    {
+        if (child == this)
+        {
+            throw new IllegalArgumentException("IllegalArgumentException");
+        }
         return setChild(true, child);
     }
 
@@ -83,7 +91,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning true if this node has a right child, false otherwise.
      */
-    public boolean hasRightChild() {
+    public boolean hasRightChild()
+    {
         return this._rightChild != null;
     }
 
@@ -92,7 +101,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning the right child of this node.
      */
-    public BinaryTree<E> getRightChild() {
+    public BinaryTree<E> getRightChild()
+    {
         return this._rightChild;
     }
 
@@ -102,7 +112,11 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param child child is the new right child to be set.
      * @return returning the previous right child.
      */
-    public BinaryTree<E> setRightChild(BinaryTree<E> child) {
+    public BinaryTree<E> setRightChild(BinaryTree<E> child)
+    {
+        if (child == this) {
+            throw new IllegalArgumentException("Illegal Argument Exception");
+        }
         return setChild(false, child);
     }
 
@@ -111,9 +125,11 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning the root node of the tree.
      */
-    public BinaryTree<E> getRoot() {
+    public BinaryTree<E> getRoot()
+    {
         BinaryTree<E> current = this;
-        while (current._parent != null) {
+        while (current._parent != null)
+        {
             current = current._parent;
         }
         return current;
@@ -124,7 +140,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning the parent of this node.
      */
-    public BinaryTree<E> getParent() {
+    public BinaryTree<E> getParent()
+    {
         return this._parent;
     }
 
@@ -133,14 +150,17 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning the total number of nodes in the subtree.
      */
-    public int size() {
+    public int size()
+    {
         int _leftSize = 0;
         int _rightSize = 0;
 
-        if (this._leftChild != null) {
+        if (this._leftChild != null)
+        {
             _leftSize = this._leftChild.size();
         }
-        if (this._rightChild != null) {
+        if (this._rightChild != null)
+        {
             _rightSize = this._rightChild.size();
         }
         return 1 + _leftSize + _rightSize;
@@ -151,18 +171,22 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return
      */
-    public int height() {
+    public int height()
+    {
         int _leftHeight = 0;
         int _rightHeight = 0;
 
-        if (this._leftChild != null) {
+        if (this._leftChild != null)
+        {
             _leftHeight = this._leftChild.height();
         }
-        if (this._rightChild != null) {
+        if (this._rightChild != null)
+        {
             _rightHeight = this._rightChild.height();
         }
 
-        if (_leftHeight > _rightHeight) {
+        if (_leftHeight > _rightHeight)
+        {
             return 1 + _leftHeight;
         } else {
             return 1 + _rightHeight;
@@ -174,8 +198,10 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returns the level of this node.
      */
-    public int level() {
-        if (this._parent == null) {
+    public int level()
+    {
+        if (this._parent == null)
+        {
             return 0;
         } else {
             return 1 + this._parent.level();
@@ -187,12 +213,15 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning the degree of this node.
      */
-    public int degree() {
+    public int degree()
+    {
         int _degree = 0;
-        if (this._leftChild != null) {
+        if (this._leftChild != null)
+        {
             _degree++;
         }
-        if (this._rightChild != null) {
+        if (this._rightChild != null)
+        {
             _degree++;
         }
         return _degree;
@@ -249,8 +278,52 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning true if the tree is complete.
      */
-    public boolean isComplete() {
+    public boolean isComplete()
+    {
+        // An empty tree is considered complete.
+        if (this == null)
+        {
+            return true;
+        }
 
+        Queue<BinaryTree<E>> queue = new LinkedList<>();
+        queue.add(this);
+        // All further nodes must be leaf nodes.
+        boolean _allLeavesNext = false;
+
+        while (!queue.isEmpty())
+        {
+            BinaryTree<E> current = queue.poll();
+
+            // Check the left child
+            if (current._leftChild != null)
+            {
+                if (_allLeavesNext)
+                {
+                    return false;
+                }
+                queue.add(current._leftChild);
+            } else
+            {
+                // All further nodes must be leaf nodes
+                _allLeavesNext = true;
+            }
+
+            // Check the right child
+            if (current._rightChild != null)
+            {
+                if (_allLeavesNext)
+                {
+                    return false;
+                }
+                queue.add(current._rightChild);
+            } else
+            {
+                _allLeavesNext = true;
+            }
+        }
+        // Tree is complete
+        return true;
     }
 
     /**
@@ -258,7 +331,8 @@ public class BinaryTree<E> implements Iterable<E> {
      *
      * @return returning true if the tree is degenerate false otherwise.
      */
-    public boolean isDegenerate() {
+    public boolean isDegenerate()
+    {
         return (this._leftChild == null && this._rightChild != null) ||
                 (this._leftChild != null && this._rightChild == null);
     }
@@ -269,11 +343,17 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param descendant descendant the node to check against this node for ancestry.
      * @return returns true if this node is an ancestor of the given descendant node.
      */
-    public boolean isAncestorOf(BinaryTree<E> descendant) throws IllegalArgumentException {
-        if (descendant == null) throw new IllegalArgumentException("Illegal Access Exception");
+    public boolean isAncestorOf(BinaryTree<E> descendant) throws IllegalArgumentException
+    {
+        if (descendant == null)
+        {
+            throw new IllegalArgumentException("Illegal Argument Exception");
+        }
         BinaryTree<E> parent = descendant.getParent();
-        while (parent != null) {
-            if (parent == this) {
+        while (parent != null)
+        {
+            if (parent == this)
+            {
                 return true;
             }
             parent = parent.getParent();
@@ -287,7 +367,12 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param child child is the node to check against this node for parentage
      * @return returning true if this node is the parent of the given child node.
      */
-    public boolean isParentOf(BinaryTree<E> child) {
+    public boolean isParentOf(BinaryTree<E> child)
+    {
+        if (child == null)
+        {
+            throw new IllegalArgumentException("Child cannot be null");
+        }
         return this._leftChild == child || this._rightChild == child;
     }
 
@@ -297,9 +382,14 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param sibling sibling is the node to check against this node for sibling.
      * @return returning true if this node is a sibling of the given node.
      */
-    public boolean isSiblingOf(BinaryTree<E> sibling) {
-        return this._parent != null && (this._parent._leftChild == sibling
-                || this._parent._rightChild == sibling);
+    public boolean isSiblingOf(BinaryTree<E> sibling)
+    {
+        if (sibling == null)
+        {
+            throw new IllegalArgumentException("Sibling cannot be null");
+        }
+        return this._parent != null && (this._parent._leftChild == sibling ||
+                this._parent._rightChild == sibling);
     }
 
     /**
@@ -308,7 +398,12 @@ public class BinaryTree<E> implements Iterable<E> {
      * @param parent parent is the node to check against this node for child.
      * @return returning true if this node is a child of the given parent node.
      */
-    public boolean isChildOf(BinaryTree<E> parent) {
+    public boolean isChildOf(BinaryTree<E> parent)
+    {
+        if (parent == null)
+        {
+            throw new IllegalArgumentException("Parent cannot be null");
+        }
         return this._parent == parent;
     }
 
@@ -322,20 +417,18 @@ public class BinaryTree<E> implements Iterable<E> {
     {
         if (ancestor == null)
         {
-            // Null cannot be an ancestor
-            return false;
+            throw new IllegalArgumentException("Illegal Argument Exception");
         }
-        // Start from the current node
         BinaryTree<E> current = this;
         while (current != null)
         {
             if (current == ancestor)
             {
-                return true; // Found the ancestor in the current node's lineage
+                return true;
             }
-            current = current._parent; // Move up the tree
+            current = current._parent;
         }
-        return false; // Ancestor not found in the lineage
+        return false;
     }
 
     /**
@@ -351,6 +444,10 @@ public class BinaryTree<E> implements Iterable<E> {
      */
     public Iterator<E> preOrderIterator()
     {
+        if (this == null)
+        {
+            return Collections.emptyIterator();
+        }
         LinkedList<E> elements = new LinkedList<>();
         preOrderTraversal(this, elements);
         return elements.iterator();
@@ -391,7 +488,8 @@ public class BinaryTree<E> implements Iterable<E> {
      */
     public String toString()
     {
-
+        String result = inOrderTraversalForString(this);
+        return "[" + result + "]";
     }
 
     /**
@@ -452,12 +550,18 @@ public class BinaryTree<E> implements Iterable<E> {
         if (this._leftChild == child)
         {
             this._leftChild = null;
-        } else if (this._rightChild == child)
+        }
+        else if (this._rightChild == child)
         {
             this._rightChild = null;
         }
     }
 
+    /**
+     *
+     * @param node
+     * @param elements
+     */
     private void preOrderTraversal(BinaryTree<E> node, LinkedList<E> elements)
     {
         if (node != null)
@@ -468,6 +572,11 @@ public class BinaryTree<E> implements Iterable<E> {
         }
     }
 
+    /**
+     *
+     * @param node
+     * @param elements
+     */
     private void inOrderTraversal(BinaryTree<E> node, LinkedList<E> elements)
     {
         if (node != null)
@@ -478,6 +587,11 @@ public class BinaryTree<E> implements Iterable<E> {
         }
     }
 
+    /**
+     *
+     * @param node
+     * @param elements
+     */
     private void postOrderTraversal(BinaryTree<E> node, LinkedList<E> elements)
     {
         if (node != null)
@@ -488,6 +602,11 @@ public class BinaryTree<E> implements Iterable<E> {
         }
     }
 
+    /**
+     *
+     * @param node
+     * @param elements
+     */
     private void levelOrderTraversal(BinaryTree<E> node, LinkedList<E> elements)
     {
         if (node != null)
@@ -510,6 +629,30 @@ public class BinaryTree<E> implements Iterable<E> {
                 }
             }
         }
+    }
+    private String inOrderTraversalForString(BinaryTree<E> node)
+    {
+        if (node == null)
+        {
+            return "";
+        }
+        String result = "";
+
+        // Left child
+        if (node._leftChild != null)
+        {
+            result += inOrderTraversalForString(node._leftChild) + ", ";
+        }
+
+        // Current node
+        result += node.element.toString();
+
+        // Right child
+        if (node._rightChild != null)
+        {
+            result += ", " + inOrderTraversalForString(node._rightChild);
+        }
+        return result;
     }
 }
 
