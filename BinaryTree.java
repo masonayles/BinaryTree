@@ -85,7 +85,7 @@ public class BinaryTree<E> implements Iterable<E>
     {
         if (child == this)
         {
-            throw new IllegalArgumentException("IllegalArgumentException");
+            throw new IllegalArgumentException("Illegal Argument Exception");
         }
         return setChild(true, child);
     }
