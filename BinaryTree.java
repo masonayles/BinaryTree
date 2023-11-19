@@ -1,4 +1,8 @@
-import java.util.*;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 
 /**
@@ -268,9 +272,9 @@ public class BinaryTree<E> implements Iterable<E>
      *
      * @return returns true if this node has two children.
      */
-    public boolean isFull() {
+    public boolean isFull()
+    {
         return this._leftChild != null && this._rightChild != null;
-
     }
 
     /**
