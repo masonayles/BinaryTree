@@ -36,6 +36,7 @@ public class BinaryTreeTest {
     public void testGetElementOnNewNode() {
         assertEquals("Element of the newly created node should be 10", (Integer) 10, tree.getElement());
     }
+
     @Test
     public void testSetElementWithValidData() {
         tree.setElement(20);
@@ -136,21 +137,25 @@ public class BinaryTreeTest {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
         tree.setRightChild(tree); // This should throw an IllegalArgumentException as it's an invalid operation
     }
+
     @Test
     public void testGetRootOnSingleNode() {
         BinaryTree<Integer> singleNodeTree = new BinaryTree<>(10);
         assertEquals("Root of a single node tree should be the node itself", singleNodeTree, singleNodeTree.getRoot());
     }
+
     @Test
     public void testGetParentOnRootNode() {
         BinaryTree<Integer> root = new BinaryTree<>(10);
         assertNull("Root node should not have a parent", root.getParent());
     }
+
     @Test
     public void testSizeOnSingleNode() {
         BinaryTree<Integer> singleNodeTree = new BinaryTree<>(10);
         assertEquals("Size of a single node tree should be 1", 1, singleNodeTree.size());
     }
+
     @Test
     public void testSizeOnComplexTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -178,11 +183,13 @@ public class BinaryTreeTest {
         int expectedSize = 7; // Update this based on the actual size of your tree
         assertEquals("Size of the tree should match the number of nodes", expectedSize, tree.size());
     }
+
     @Test
     public void testHeightOnSingleNode() {
         BinaryTree<Integer> singleNodeTree = new BinaryTree<>(10);
         assertEquals("Height of a single node tree should be 0", 0, singleNodeTree.height());
     }
+
     @Test
     public void testHeightOnComplexTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -197,11 +204,13 @@ public class BinaryTreeTest {
         int expectedHeight = 2;
         assertEquals("Height of the tree should be 2", expectedHeight, tree.height());
     }
+
     @Test
     public void testLevelOnRootNode() {
         BinaryTree<Integer> root = new BinaryTree<>(10);
         assertEquals("Level of the root node should be 0", 0, root.level());
     }
+
     @Test
     public void testLevelOnChildNode() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -210,11 +219,13 @@ public class BinaryTreeTest {
 
         assertEquals("Level of a direct child of the root should be 1", 1, child.level());
     }
+
     @Test
     public void testDegreeOnLeafNode() {
         BinaryTree<Integer> leafNode = new BinaryTree<>(5);
         assertEquals("Degree of a leaf node should be 0", 0, leafNode.degree());
     }
+
     @Test
     public void testDegreeOnParentNode() {
         BinaryTree<Integer> parentNode = new BinaryTree<>(10);
@@ -225,11 +236,13 @@ public class BinaryTreeTest {
 
         assertEquals("Degree of a parent node with two children should be 2", 2, parentNode.degree());
     }
+
     @Test
     public void testIsRootOnRootNode() {
         BinaryTree<Integer> rootNode = new BinaryTree<>(10);
         assertTrue("The root node should return true for isRoot", rootNode.isRoot());
     }
+
     @Test
     public void testIsRootOnChildNode() {
         BinaryTree<Integer> rootNode = new BinaryTree<>(10);
@@ -238,6 +251,7 @@ public class BinaryTreeTest {
 
         assertFalse("A child node should return false for isRoot", childNode.isRoot());
     }
+
     @Test
     public void testIsParentOnLeafNode() {
         BinaryTree<Integer> leafNode = new BinaryTree<>(10);
@@ -273,6 +287,7 @@ public class BinaryTreeTest {
         BinaryTree<Integer> leafNode = new BinaryTree<>(10);
         assertTrue("A node with no children should be a leaf", leafNode.isLeaf());
     }
+
     @Test
     public void testIsLeafOnParentNode() {
         BinaryTree<Integer> parentNode = new BinaryTree<>(10);
@@ -293,6 +308,7 @@ public class BinaryTreeTest {
 
         assertTrue("A complete tree with all nodes having two children should be full", tree.isFull());
     }
+
     @Test
     public void testIsFullOnIncompleteTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -301,6 +317,7 @@ public class BinaryTreeTest {
 
         assertFalse("A tree with nodes having less than two children should not be full", tree.isFull());
     }
+
     @Test
     public void testIsCompleteOnCompleteTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -311,6 +328,7 @@ public class BinaryTreeTest {
 
         assertTrue("A complete binary tree should return true for isComplete", tree.isComplete());
     }
+
     @Test
     public void testIsCompleteOnIncompleteTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -319,6 +337,7 @@ public class BinaryTreeTest {
 
         assertFalse("An incomplete binary tree should return false for isComplete", tree.isComplete());
     }
+
     @Test
     public void testIsDegenerateOnStraightLineTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -329,6 +348,7 @@ public class BinaryTreeTest {
 
         assertTrue("A straight-line tree should return true for isDegenerate", tree.isDegenerate());
     }
+
     @Test
     public void testIsDegenerateOnBalancedTree() {
         BinaryTree<Integer> tree = new BinaryTree<>(10);
@@ -339,6 +359,7 @@ public class BinaryTreeTest {
 
         assertFalse("A balanced tree should return false for isDegenerate", tree.isDegenerate());
     }
+
     @Test
     public void testIsAncestorOf() {
         BinaryTree<Integer> ancestor = new BinaryTree<>(10);
@@ -349,6 +370,7 @@ public class BinaryTreeTest {
 
         assertTrue("Ancestor should return true for isAncestorOf its grandchild", ancestor.isAncestorOf(grandChild));
     }
+
     @Test
     public void testIsParentOf() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -357,6 +379,7 @@ public class BinaryTreeTest {
 
         assertTrue("Parent should return true for isParentOf its child", parent.isParentOf(child));
     }
+
     @Test
     public void testIsSiblingOf() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -367,6 +390,7 @@ public class BinaryTreeTest {
 
         assertTrue("Child1 should return true for isSiblingOf Child2", child1.isSiblingOf(child2));
     }
+
     @Test
     public void testIsChildOf() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -375,6 +399,7 @@ public class BinaryTreeTest {
 
         assertTrue("Child should return true for isChildOf its parent", child.isChildOf(parent));
     }
+
     @Test
     public void testIsDescendantOf() {
         BinaryTree<Integer> ancestor = new BinaryTree<>(10);
@@ -385,6 +410,7 @@ public class BinaryTreeTest {
 
         assertTrue("GrandChild should return true for isDescendantOf its ancestor", grandChild.isDescendantOf(ancestor));
     }
+
     @Test
     public void testIsAncestorOfWithValidDescendant() {
         BinaryTree<Integer> ancestor = new BinaryTree<>(10);
@@ -395,6 +421,7 @@ public class BinaryTreeTest {
 
         assertTrue("Ancestor should return true for isAncestorOf with a valid descendant", ancestor.isAncestorOf(grandChild));
     }
+
     @Test
     public void testIsAncestorOfWithInvalidDescendant() {
         BinaryTree<Integer> ancestor = new BinaryTree<>(10);
@@ -402,11 +429,13 @@ public class BinaryTreeTest {
 
         assertFalse("Ancestor should return false for isAncestorOf with an invalid descendant", ancestor.isAncestorOf(nonDescendant));
     }
+
     @Test(expected = IllegalArgumentException.class)
     public void testIsAncestorOfWithNullDescendant() {
         BinaryTree<Integer> ancestor = new BinaryTree<>(10);
         ancestor.isAncestorOf(null); // Assuming calling with null throws IllegalArgumentException
     }
+
     @Test
     public void testIsParentOfWithValidChild() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -415,6 +444,7 @@ public class BinaryTreeTest {
 
         assertTrue("Parent should return true for isParentOf with a valid child", parent.isParentOf(child));
     }
+
     @Test
     public void testIsParentOfWithInvalidChild() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -422,6 +452,7 @@ public class BinaryTreeTest {
 
         assertFalse("Parent should return false for isParentOf with an invalid child", parent.isParentOf(nonChild));
     }
+
     @Test(expected = IllegalArgumentException.class)
     public void testIsParentOfWithNullChild() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -438,6 +469,7 @@ public class BinaryTreeTest {
 
         assertTrue("Child1 should return true for isSiblingOf with a valid sibling", child1.isSiblingOf(child2));
     }
+
     @Test
     public void testIsSiblingOfWithNoSibling() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -446,11 +478,13 @@ public class BinaryTreeTest {
 
         assertFalse("Child1 should return false for isSiblingOf when there is no sibling", child1.isSiblingOf(new BinaryTree<>(15)));
     }
+
     @Test(expected = IllegalArgumentException.class)
     public void testIsSiblingOfWithNullSibling() {
         BinaryTree<Integer> child = new BinaryTree<>(5);
         child.isSiblingOf(null); // Assuming calling with null throws IllegalArgumentException
     }
+
     @Test
     public void testIsChildOfWithValidParent() {
         BinaryTree<Integer> parent = new BinaryTree<>(10);
@@ -459,6 +493,7 @@ public class BinaryTreeTest {
 
         assertTrue("Child should return true for isChildOf with a valid parent", child.isChildOf(parent));
     }
+
     @Test
     public void testIsChildOfWithInvalidParent() {
         BinaryTree<Integer> child = new BinaryTree<>(5);
@@ -466,11 +501,13 @@ public class BinaryTreeTest {
 
         assertFalse("Child should return false for isChildOf with an invalid parent", child.isChildOf(nonParent));
     }
+
     @Test(expected = IllegalArgumentException.class)
     public void testIsChildOfWithNullParent() {
         BinaryTree<Integer> child = new BinaryTree<>(5);
         child.isChildOf(null); // Assuming calling with null throws IllegalArgumentException
     }
+
     @Test
     public void testIsDescendantOfWithValidAncestor() {
         BinaryTree<Integer> ancestor = new BinaryTree<>(10);
@@ -481,6 +518,7 @@ public class BinaryTreeTest {
 
         assertTrue("GrandChild should return true for isDescendantOf with a valid ancestor", grandChild.isDescendantOf(ancestor));
     }
+
     @Test
     public void testIsDescendantOfWithInvalidAncestor() {
         BinaryTree<Integer> grandChild = new BinaryTree<>(3);
@@ -488,11 +526,13 @@ public class BinaryTreeTest {
 
         assertFalse("GrandChild should return false for isDescendantOf with an invalid ancestor", grandChild.isDescendantOf(nonAncestor));
     }
+
     @Test(expected = IllegalArgumentException.class)
     public void testIsDescendantOfWithNullAncestor() {
         BinaryTree<Integer> grandChild = new BinaryTree<>(3);
         grandChild.isDescendantOf(null); // Assuming calling with null throws IllegalArgumentException
     }
+
     @Test
     public void testIteratorOnEmptyTree() {
         BinaryTree<Integer> emptyTree = new BinaryTree<>(null); // Assuming an empty tree is initialized with null
@@ -500,6 +540,7 @@ public class BinaryTreeTest {
 
         assertFalse("Iterator should not have next in an empty tree", iterator.hasNext());
     }
+
     @Test
     public void testIteratorOnSingleElementTree() {
         BinaryTree<Integer> singleElementTree = new BinaryTree<>(10);
@@ -572,6 +613,7 @@ public class BinaryTreeTest {
         List<Integer> expectedOrder = Arrays.asList(3, 5, 7, 10, 12, 15, 17);
         assertEquals("In-order traversal should return elements in the correct order", expectedOrder, results);
     }
+
     @Test
     public void testPostOrderIteratorOnComplexTree() {
         BinaryTree<Integer> tree = createComplexTree();
@@ -585,6 +627,7 @@ public class BinaryTreeTest {
         List<Integer> expectedOrder = Arrays.asList(3, 7, 5, 12, 17, 15, 10);
         assertEquals("Post-order traversal should return elements in post-order", expectedOrder, results);
     }
+
     @Test
     public void testLevelOrderIteratorOnComplexTree() {
         BinaryTree<Integer> tree = createComplexTree();
@@ -598,39 +641,40 @@ public class BinaryTreeTest {
         List<String> expectedOrder = Arrays.asList("10", "5", "15", "3", "7", "12", "17");
         assertEquals("Level-order traversal should return elements in level-order", expectedOrder, results);
     }
-        @Test
-        public void testToStringOnEmptyTree() {
-            BinaryTree<Integer> emptyTree = new BinaryTree<>(null);
-            String expectedResult = "[]"; // Empty tree should result in empty string with square brackets
-            assertEquals("toString on an empty tree should match the expected result", expectedResult, emptyTree.toString());
-        }
 
-        @Test
-        public void testToStringOnSingleElementTree() {
-            BinaryTree<Integer> singleElementTree = new BinaryTree<>(5);
-            String expectedResult = "[5]"; // Single element tree should have the element in square brackets
-            assertEquals("toString on a single element tree should match the expected result", expectedResult, singleElementTree.toString());
-        }
+    @Test
+    public void testToStringOnEmptyTree() {
+        BinaryTree<Integer> emptyTree = new BinaryTree<>(null);
+        String expectedResult = "[]"; // Empty tree should result in empty string with square brackets
+        assertEquals("toString on an empty tree should match the expected result", expectedResult, emptyTree.toString());
+    }
 
-        @Test
-        public void testToStringOnComplexTree() {
-            BinaryTree<Integer> tree = createComplexTree();
-            String expectedResult = "[3, 5, 7, 10, 12, 15, 17]"; // Adjust based on your toString implementation
-            assertEquals("toString on a complex tree should match the expected result", expectedResult, tree.toString());
-        }
+    @Test
+    public void testToStringOnSingleElementTree() {
+        BinaryTree<Integer> singleElementTree = new BinaryTree<>(5);
+        String expectedResult = "[5]"; // Single element tree should have the element in square brackets
+        assertEquals("toString on a single element tree should match the expected result", expectedResult, singleElementTree.toString());
+    }
 
-        @Test(expected = IllegalArgumentException.class)
-        public void testSetChildWithCircularReference() {
-            // Create a tree structure with a circular reference
-            BinaryTree<Integer> parent = new BinaryTree<>(10);
-            BinaryTree<Integer> child = new BinaryTree<>(5);
+    @Test
+    public void testToStringOnComplexTree() {
+        BinaryTree<Integer> tree = createComplexTree();
+        String expectedResult = "[3, 5, 7, 10, 12, 15, 17]"; // Adjust based on your toString implementation
+        assertEquals("toString on a complex tree should match the expected result", expectedResult, tree.toString());
+    }
 
-            // Set child as the left child of the parent
-            parent.setLeftChild(child);
+    @Test(expected = IllegalArgumentException.class)
+    public void testSetChildWithCircularReference() {
+        // Create a tree structure with a circular reference
+        BinaryTree<Integer> parent = new BinaryTree<>(10);
+        BinaryTree<Integer> child = new BinaryTree<>(5);
 
-            // Attempt to set the parent as the left child of the child, which should throw an exception
-            child.setLeftChild(parent);
-        }
+        // Set child as the left child of the parent
+        parent.setLeftChild(child);
+
+        // Attempt to set the parent as the left child of the child, which should throw an exception
+        child.setLeftChild(parent);
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidOperationThrowingIllegalArgumentException() {
@@ -703,11 +747,110 @@ public class BinaryTreeTest {
         // Include cases for setting children, checking ancestors, siblings, etc.
     }
 
+    @Test
+    public void testTraversalMethodsOnEmptyTree() {
+        BinaryTree<Integer> tree = new BinaryTree<>(null);
 
+        // Test in-order traversal on an empty tree
+        Iterator<Integer> inOrderIterator = tree.inOrderIterator();
+        assertFalse(inOrderIterator.hasNext());
 
-
-    // Other test methods...
+        // Add more traversal method tests for pre-order, post-order, and level-order here
     }
+
+    @Test
+    public void testSetElementToNullOnExistingNode() {
+        // Create a complex tree for testing
+        BinaryTree<Integer> tree = createComplexTree();
+
+        // Find an existing node with element 5
+        BinaryTree<Integer> nodeToModify = findNode(tree, 5);
+        assertNotNull(nodeToModify);
+
+        // Set the element of the existing node to null
+        nodeToModify.setElement(null);
+
+        // Verify that the element is now null
+        assertNull(nodeToModify.getElement());
+    }
+
+
+    // Helper method to find a node with a specific element
+    private BinaryTree<Integer> findNode(BinaryTree<Integer> tree, int element) {
+        if (tree == null) {
+            return null;
+        }
+
+        if (tree.getElement() == element) {
+            return tree;
+        }
+
+        BinaryTree<Integer> leftResult = findNode(tree.getLeftChild(), element);
+        if (leftResult != null) {
+            return leftResult;
+        }
+
+        return findNode(tree.getRightChild(), element);
+    }
+
+    @Test
+    public void testGetParentOnSingleNode() {
+        BinaryTree<Integer> tree = new BinaryTree<>(10);
+
+        // Test getParent on a tree with only one node
+        assertNull(tree.getParent());
+    }
+
+    @Test
+    public void testGetChildOnLeafNode() {
+        BinaryTree<Integer> tree = new BinaryTree<>(10);
+
+        // Test getting left and right child on a leaf node
+        assertFalse(tree.hasLeftChild());
+        assertFalse(tree.hasRightChild());
+        assertNull(tree.getLeftChild());
+        assertNull(tree.getRightChild());
+    }
+
+    // Helper method to create a complex tree (you can modify it as needed)
+    private BinaryTree<Integer> createComplexTree() {
+        BinaryTree<Integer> root = new BinaryTree<>(10);
+        BinaryTree<Integer> node1 = new BinaryTree<>(5);
+        BinaryTree<Integer> node2 = new BinaryTree<>(15);
+        BinaryTree<Integer> node3 = new BinaryTree<>(3);
+        BinaryTree<Integer> node4 = new BinaryTree<>(7);
+        BinaryTree<Integer> node5 = new BinaryTree<>(12);
+        BinaryTree<Integer> node6 = new BinaryTree<>(17);
+
+        root.setLeftChild(node1);
+        root.setRightChild(node2);
+        node1.setLeftChild(node3);
+        node1.setRightChild(node4);
+        node2.setLeftChild(node5);
+        node2.setRightChild(node6);
+
+        return root;
+    }
+
+    // Helper method to find a node with a specific element in the tree (you can modify it as needed)
+    private BinaryTree<Integer> findNode(BinaryTree<Integer> root, int element) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.getElement() == element) {
+            return root;
+        }
+
+        BinaryTree<Integer> leftResult = findNode(root.getLeftChild(), element);
+        if (leftResult != null) {
+            return leftResult;
+        }
+
+        return findNode(root.getRightChild(), element);
+    }
+}
+
 
 
 
