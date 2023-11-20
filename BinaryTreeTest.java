@@ -619,7 +619,94 @@ public class BinaryTreeTest {
             assertEquals("toString on a complex tree should match the expected result", expectedResult, tree.toString());
         }
 
-        // Other test methods...
+        @Test(expected = IllegalArgumentException.class)
+        public void testSetChildWithCircularReference() {
+            // Create a tree structure with a circular reference
+            BinaryTree<Integer> parent = new BinaryTree<>(10);
+            BinaryTree<Integer> child = new BinaryTree<>(5);
+
+            // Set child as the left child of the parent
+            parent.setLeftChild(child);
+
+            // Attempt to set the parent as the left child of the child, which should throw an exception
+            child.setLeftChild(parent);
+        }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidOperationThrowingIllegalArgumentException() {
+        // Create a simple tree with a single node
+        BinaryTree<Integer> tree = new BinaryTree<>(10);
+
+        // Attempt an invalid operation, which should throw an exception (e.g., setting a non-root node as a root)
+        tree.setRightChild(new BinaryTree<>(5));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testMethodCallsWithNullArguments() {
+        BinaryTree<Integer> tree = new BinaryTree<>(10);
+
+        // Attempt to call methods with null arguments, which should throw IllegalArgumentException
+        tree.setLeftChild(null);
+        tree.setRightChild(null);
+        tree.isAncestorOf(null);
+        tree.isParentOf(null);
+        tree.isSiblingOf(null);
+        tree.isChildOf(null);
+        tree.isDescendantOf(null);
+    }
+
+    @Test
+    public void testEntireTreeOperationsForConsistency() {
+        // Create a complex tree
+        BinaryTree<Integer> tree = createComplexTree();
+
+        // Test operations for consistency
+        assertEquals("getRoot should return the entire tree", tree, tree.getRoot());
+        assertNull("getParent on root should return null", tree.getParent());
+        assertEquals("size should be consistent with the expected count", 7, tree.size());
+        assertEquals("height should be consistent with the expected value", 3, tree.height());
+        assertEquals("degree should be consistent with the expected value", 2, tree.degree());
+        assertTrue("isRoot should return true for the root node", tree.isRoot());
+        assertFalse("isParent should return false for the root node", tree.isParent());
+        assertTrue("isChild should return true for the root node", tree.isChild());
+        assertFalse("isLeaf should return false for the root node", tree.isLeaf());
+        assertFalse("isFull should return false for the tree", tree.isFull());
+        assertFalse("isComplete should return false for the tree", tree.isComplete());
+        assertFalse("isDegenerate should return false for the tree", tree.isDegenerate());
+    }
+
+    @Test
+    public void testTreeManipulationAndIteratorConsistency() {
+        // Create a complex tree
+        BinaryTree<Integer> tree = createComplexTree();
+
+        // Test tree manipulation and iterator consistency
+        tree.setLeftChild(new BinaryTree<>(8));
+        tree.setRightChild(new BinaryTree<>(20));
+
+        // Verify iterator consistency after manipulation
+        Iterator<Integer> iterator = tree.iterator();
+        StringBuilder result = new StringBuilder();
+        while (iterator.hasNext()) {
+            result.append(iterator.next()).append(", ");
+        }
+        String expectedOrder = "8, 10, 20, ";
+        assertEquals("Iterator should return elements in in-order traversal order after manipulation", expectedOrder, result.toString());
+
+        // Add more complex tree manipulations and iterator consistency checks here...
+    }
+
+    @Test
+    public void testComplexTreeManipulationsReflectingAllOperations() {
+        // Add test cases to perform complex tree manipulations that reflect all operations
+        // Ensure that these manipulations result in the expected tree structure and properties
+        // Include cases for setting children, checking ancestors, siblings, etc.
+    }
+
+
+
+
+    // Other test methods...
     }
 
 
