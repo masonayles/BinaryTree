@@ -694,6 +694,12 @@ public class BinaryTree<E> implements Iterable<E>
             }
         }
     }
+
+    /**
+     * private helper to help with inorderTraversalForStrin
+     * @param node node is the starting node.
+     * @return
+     */
     private String inOrderTraversalForString(BinaryTree<E> node)
     {
         if (node == null)
@@ -701,25 +707,23 @@ public class BinaryTree<E> implements Iterable<E>
             return "";
         }
         String result = "";
-
-        // Left child
         if (node._leftChild != null)
         {
             result += inOrderTraversalForString(node._leftChild) + ", ";
         }
-
-        // Current node
-        result += node.element.toString();
-
-        // Right child
+        if (node.element != null)
+        {
+            result += node.element.toString();
+        }
         if (node._rightChild != null)
         {
-            result += ", " + inOrderTraversalForString(node._rightChild);
+            if (node.element != null)
+            {
+                result += ", ";
+            }
+            result += inOrderTraversalForString(node._rightChild);
         }
         return result;
     }
-
-
-
 }
 
