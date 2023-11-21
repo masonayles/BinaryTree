@@ -87,7 +87,23 @@ public class BinaryTree<E> implements Iterable<E>
         {
             throw new IllegalArgumentException("Illegal Argument Exception");
         }
-        return setChild(true, child);
+        // Detach the current left child.
+        BinaryTree<E> oldChild = this._leftChild;
+        if (oldChild != null)
+        {
+            oldChild._parent = null;
+        }
+        this._leftChild = child;
+        if (child != null && child._parent != null)
+        {
+            child._parent.detachChild(child);
+        }
+        if (child != null)
+        {
+            child._parent = this;
+        }
+
+        return oldChild;
     }
 
     /**
@@ -118,11 +134,28 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public BinaryTree<E> setRightChild(BinaryTree<E> child)
     {
-        if (child == this) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+        if (child == this)
+        {
+            throw new IllegalArgumentException("A node cannot be its own right child");
         }
-        return setChild(false, child);
+        BinaryTree<E> oldChild = this._rightChild;
+        if (oldChild != null)
+        {
+            oldChild._parent = null;
+        }
+        this._rightChild = child;
+        // Detach the new child from its previous parent
+        if (child != null && child._parent != null)
+        {
+            child._parent.detachChild(child);
+        }
+        if (child != null)
+        {
+            child._parent = this;
+        }
+        return oldChild;
     }
+
 
     /**
      * Returns the root of the tree.
@@ -462,6 +495,10 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public Iterator<E> inOrderIterator()
     {
+        if (this == null)
+        {
+            throw new IllegalStateException("Cannot create iterator from a null tree");
+        }
         LinkedList<E> elements = new LinkedList<>();
         inOrderTraversal(this, elements);
         return elements.iterator();
@@ -472,6 +509,10 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public Iterator<E> postOrderIterator()
     {
+        if (this == null)
+        {
+            throw new IllegalStateException("Cannot create iterator from a null tree");
+        }
         LinkedList<E> elements = new LinkedList<>();
         postOrderTraversal(this, elements);
         return elements.iterator();
@@ -482,6 +523,10 @@ public class BinaryTree<E> implements Iterable<E>
      */
     public Iterator<E> levelOrderIterator()
     {
+        if (this == null)
+        {
+            throw new IllegalStateException("Cannot create iterator from a null tree");
+        }
         LinkedList<E> elements = new LinkedList<>();
         levelOrderTraversal(this, elements);
         return elements.iterator();
@@ -506,6 +551,11 @@ public class BinaryTree<E> implements Iterable<E>
      */
     private BinaryTree<E> setChild(boolean _isLeft, BinaryTree<E> child)
     {
+        if (child == this)
+        {
+            throw new IllegalArgumentException("Illegal Argument Exception");
+        }
+
         BinaryTree<E> oldChild;
         if (_isLeft)
         {
@@ -551,14 +601,20 @@ public class BinaryTree<E> implements Iterable<E>
      */
     private void detachChild(BinaryTree<E> child)
     {
+        if (child == null)
+        {
+            return;
+        }
+
         if (this._leftChild == child)
         {
             this._leftChild = null;
-        }
-        else if (this._rightChild == child)
+        } else if (this._rightChild == child)
         {
             this._rightChild = null;
         }
+
+        child._parent = null;
     }
 
     /**
@@ -585,10 +641,12 @@ public class BinaryTree<E> implements Iterable<E>
     {
         if (node != null)
         {
+            return;
+        }
             inOrderTraversal(node._leftChild, elements);
             elements.add(node.element);
             inOrderTraversal(node._rightChild, elements);
-        }
+
     }
 
     /**
