@@ -240,7 +240,9 @@ public class BinaryTree<E> implements Iterable<E>
         if (this._parent == null)
         {
             return 0;
-        } else {
+        }
+        else
+        {
             return 1 + this._parent.level();
         }
     }
@@ -255,11 +257,11 @@ public class BinaryTree<E> implements Iterable<E>
         int _degree = 0;
         if (this._leftChild != null)
         {
-            _degree++;
+            _degree += 1;
         }
         if (this._rightChild != null)
         {
-            _degree++;
+            _degree += 1;
         }
         return _degree;
     }
