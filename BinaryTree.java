@@ -643,12 +643,10 @@ public class BinaryTree<E> implements Iterable<E>
     {
         if (node != null)
         {
-            return;
-        }
             inOrderTraversal(node._leftChild, elements);
             elements.add(node.element);
             inOrderTraversal(node._rightChild, elements);
-
+        }
     }
 
     /**
