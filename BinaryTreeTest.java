@@ -811,44 +811,6 @@ public class BinaryTreeTest {
         assertNull(tree.getLeftChild());
         assertNull(tree.getRightChild());
     }
-
-    // Helper method to create a complex tree (you can modify it as needed)
-    private BinaryTree<Integer> createComplexTree() {
-        BinaryTree<Integer> root = new BinaryTree<>(10);
-        BinaryTree<Integer> node1 = new BinaryTree<>(5);
-        BinaryTree<Integer> node2 = new BinaryTree<>(15);
-        BinaryTree<Integer> node3 = new BinaryTree<>(3);
-        BinaryTree<Integer> node4 = new BinaryTree<>(7);
-        BinaryTree<Integer> node5 = new BinaryTree<>(12);
-        BinaryTree<Integer> node6 = new BinaryTree<>(17);
-
-        root.setLeftChild(node1);
-        root.setRightChild(node2);
-        node1.setLeftChild(node3);
-        node1.setRightChild(node4);
-        node2.setLeftChild(node5);
-        node2.setRightChild(node6);
-
-        return root;
-    }
-
-    // Helper method to find a node with a specific element in the tree (you can modify it as needed)
-    private BinaryTree<Integer> findNode(BinaryTree<Integer> root, int element) {
-        if (root == null) {
-            return null;
-        }
-
-        if (root.getElement() == element) {
-            return root;
-        }
-
-        BinaryTree<Integer> leftResult = findNode(root.getLeftChild(), element);
-        if (leftResult != null) {
-            return leftResult;
-        }
-
-        return findNode(root.getRightChild(), element);
-    }
 }
 
 
